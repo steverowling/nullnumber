@@ -1,0 +1,14 @@
+{
+  "name": "steverowling/nullnumber",
+  "description": "Extension of the built-in Number field with a default value of null.",
+  "authors": [
+    {
+      "name": "Steve Rowling",
+      "homepage": "https://springworks.co.uk/"
+    }
+  ],
+  "type": "craft-plugin",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}
