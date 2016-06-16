@@ -46,6 +46,18 @@ class NullNumberFieldType extends NumberFieldType
     }
 
     /**
+     * @inheritDoc ISavableComponentType::getSettingsHtml()
+     *
+     * @return string|null
+     */
+    public function getSettingsHtml()
+    {
+        return craft()->templates->render('nullnumber/settings', array(
+            'settings' => $this->settings
+        ));
+    }
+
+    /**
      * @inheritDoc IFieldType::getInputHtml()
      *
      * @param string $name
@@ -60,20 +72,18 @@ class NullNumberFieldType extends NumberFieldType
             $value = null;
         }
 
-        if ($value == null)
+        $vars = array(
+            'name'  => $name,
+            'size'  => $this->settings->inputSize,
+            'value' => $value === null ? '' : craft()->numberFormatter->formatDecimal($value, false),
+        );
+
+        if ($this->settings['inputAlignment'])
         {
-            return craft()->templates->render('_includes/forms/text', array(
-                'name'  => $name,
-                'value' => '',
-                'size'  => 5
-            ));
+            $vars['style'] = 'direction: ' . $this->settings['inputAlignment'] . ';';
         }
 
-        return craft()->templates->render('_includes/forms/text', array(
-            'name'  => $name,
-            'value' => craft()->numberFormatter->formatDecimal($value, false),
-            'size'  => 5
-        ));
+        return craft()->templates->render('_includes/forms/text', $vars);
     }
 
     /**
@@ -94,4 +104,10 @@ class NullNumberFieldType extends NumberFieldType
             return LocalizationHelper::normalizeNumber($data);
         }
     }
+
+    protected function getSettingsModel()
+    {
+        return new NullNumber_SettingsModel();
+    }
+
 }

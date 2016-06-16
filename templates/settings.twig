@@ -1,0 +1,24 @@
+{% import "_includes/forms" as forms %}
+{% include '_components/fieldtypes/Number/settings' %}
+
+{{ forms.textField({
+  label: "Input Size"|t,
+  id: 'inputSize',
+  name: 'inputSize',
+  value: settings.inputSize,
+  size: 5,
+  errors: settings.getErrors('inputSize')
+}) }}
+
+{{ forms.selectField({
+  label: "Input Alignment"|t,
+  id: 'inputAlignment',
+  name: 'inputAlignment',
+  value: settings.inputAlignment,
+  errors: settings.getErrors('inputAlignment'),
+  options: {
+    '': 'Locale Default'|t,
+    'rtl': 'Right'|t,
+    'ltr': 'Left'|t,
+  }
+}) }}
